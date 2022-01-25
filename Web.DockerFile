@@ -1,10 +1,10 @@
 FROM php:7.4.21-apache
 
 # # Update
-# RUN apt-get -y update --fix-missing && \
-#     apt-get upgrade -y && \
-#     apt-get --no-install-recommends install -y apt-utils && \
-#     rm -rf /var/lib/apt/lists/*
+RUN apt-get -y update --fix-missing && \
+    apt-get upgrade -y && \
+    apt-get --no-install-recommends install -y apt-utils && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install useful tools and install important libaries
 RUN apt-get -y update && \
@@ -37,11 +37,11 @@ openssl && \
 #     docker-php-ext-enable redis
 
 # # Install imagick
-# RUN apt-get update && \
-#     apt-get -y --no-install-recommends install --fix-missing libmagickwand-dev && \
-#     rm -rf /var/lib/apt/lists/* && \
-#     pecl install imagick && \
-#     docker-php-ext-enable imagick
+RUN apt-get update && \
+    apt-get -y --no-install-recommends install --fix-missing libmagickwand-dev && \
+    rm -rf /var/lib/apt/lists/* && \
+    pecl install imagick && \
+    docker-php-ext-enable imagick
 
 # Other PHP7 Extensions
 
@@ -60,13 +60,13 @@ RUN docker-php-ext-install pdo_mysql && \
 
 
 # Install Freetype 
-# RUN apt-get -y update && \
-#     apt-get --no-install-recommends install -y libfreetype6-dev \
-# libjpeg62-turbo-dev \
-# libpng-dev && \
-#     rm -rf /var/lib/apt/lists/* && \
-#     docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg && \
-#     docker-php-ext-install gd
+RUN apt-get -y update && \
+    apt-get --no-install-recommends install -y libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev && \
+    rm -rf /var/lib/apt/lists/* && \
+    docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg && \
+    docker-php-ext-install gd
 
 # Enable apache modules
 RUN a2enmod rewrite headers
