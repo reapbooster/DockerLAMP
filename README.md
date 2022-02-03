@@ -20,16 +20,30 @@ Everything is launched or controlled with GNU make.
 ## Some helpful commands, run `make help` to verify they still are accurate:
 
  help           :       Print commands help.
+ 
  up             :       Pull new images and start up containers (won't prune old ones).
+ 
  down           :       Stop containers (won't prune).
+ 
  start          :       Start existing containers without updating.
+ 
  stop           :       Stop containers (won't prune).
+ 
  prune          :       Remove containers and their volumes (DB will be lost!).
+
                         You can optionally pass an argument with the service name to prune single container
+
                         prune mariadb   : Prune `mariadb` container and remove its volumes.
+
                         prune mariadb solr      : Prune `mariadb` and `solr` containers and remove their volumes.
+
  ps             :       List running containers.
+
  shell          :       Access `web` container via shell.
+
  shell-node     :       Access `node` container via shell..
+
  shell-db       :       Access `db` container via shell..
+
  root-shell-web :       Access `web` container via ROOT shell.
+ 
