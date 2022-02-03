@@ -1,3 +1,4 @@
+/codebase/index.html
 /codebase/**/
 *.gz
 *.tar
