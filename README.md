@@ -1,21 +1,35 @@
-Very simple LAMP stack running on Docker containers
-
+# Simple Docker LAMP
 Everything is launched or controlled with GNU make.
 
-Run `make help` to list available commands or see commands in the file called Makefile.
+## ;TLDR;
 
-The `codebase` directory gets mounted within the containers, put your code there.
+1. Run `make help` to list available commands
 
-You can also put a database there and then run `make shell` to go to the Web container and import the DB.
+2. Edit the .env file, give your project a name
 
-Lastly, based on your directory structure copy the corresponding Apache Config file. 
+3. On .env: Select the propper APACHE_CONFIG edit it if needed
 
-There are two main ones, but you can create your own and copy it in the same fashion.
+4. Put your code, DB and media files in `/codebase` , it gets mounted within all the containers under `/var/www/html`
 
-For the average site with a web root folder called ./docroot
+5. Run `make up`. If it runs without errors, you now have 3 containers **web, db and node**.
 
-`docker cp apache-vhost-configs DockerLAMP_web:/etc/apache2/sites-available/000-default.conf`
+6. Running `make shell` will get you a terminal shell into the **web** container.
 
-For sites hosted on Pantheon with a web root folder called ./web
+7. Within the **web** container, import the DB: `zcat prod-DB_FILENAME.sql.gz | mysql -u drupal -pdrupal -h db drupal`
 
-`docker cp apache-vhost-configs-for-pantheon-sites DockerLAMP_web:/etc/apache2/sites-available/000-default.conf`
+## Some helpful commands, run `make help` to verify they still are accurate:
+
+ help           :       Print commands help.
+ up             :       Pull new images and start up containers (won't prune old ones).
+ down           :       Stop containers (won't prune).
+ start          :       Start existing containers without updating.
+ stop           :       Stop containers (won't prune).
+ prune          :       Remove containers and their volumes (DB will be lost!).
+                        You can optionally pass an argument with the service name to prune single container
+                        prune mariadb   : Prune `mariadb` container and remove its volumes.
+                        prune mariadb solr      : Prune `mariadb` and `solr` containers and remove their volumes.
+ ps             :       List running containers.
+ shell          :       Access `web` container via shell.
+ shell-node     :       Access `node` container via shell..
+ shell-db       :       Access `db` container via shell..
+ root-shell-web :       Access `web` container via ROOT shell.
