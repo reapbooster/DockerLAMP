@@ -22,3 +22,12 @@ services:
       MYSQL_PASSWORD: $MYSQL_PW
     volumes: 
       - ./codebase:/var/www/html
+  node: 
+    container_name: "${PROJECT_NAME}_node"
+    build:
+      context: ./
+      dockerfile: Node.DockerFile
+    volumes:
+      - ./codebase:/var/www/html
+    command: "tail -f /dev/null"
+    working_dir: /var/www/html
