@@ -28,9 +28,14 @@ openssl && \
     rm -rf /var/lib/apt/lists/* && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# # Install xdebug
-# RUN pecl install xdebug-2.8.0 && \
-#     docker-php-ext-enable xdebug
+# Install xdebug
+RUN pecl install xdebug-2.8.0 && \
+    docker-php-ext-enable xdebug
+
+RUN echo "zend_extension=xdebug\n \
+xdebug.remote_enable=on\n \
+xdebug.remote_autostart=on\n \
+xdebug.remote_connect_back=on" > /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 # # Install redis
 # RUN pecl install redis-5.1.1 && \
@@ -77,5 +82,7 @@ RUN rm -rf /usr/src/*
 # RUN pecl install memcache-4.0.5.2
 
 RUN composer global require drush/drush:^8
+
+COPY apache-vhost-configs /etc/apache2/sites-available/000-default.conf
 
 RUN echo 'export PATH="$HOME/.composer/vendor/bin:$PATH"' >> ~/.bashrc
