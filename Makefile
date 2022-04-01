@@ -24,8 +24,9 @@ up:
 	docker cp $(APACHE_CONFIG) $(PROJECT_NAME)_web:/etc/apache2/sites-available/000-default.conf
 	docker-compose stop 
 	docker-compose start
+	docker exec -it $(PROJECT_NAME)_node bash -c "npm install -g webpack-cli"
 	@printf "\n\nIf this is a fresh launch, run 'make db-init'..."
-	@printf "\n\nLoad the DB with: zcat prod-DB_FILENAME.sql.gz | mysql -u drupal -pdrupal -h db drupal"
+	@printf "\n\nLoad the DB with: zcat prod-DB_FILENAME.sql.gz | mysql -u drupal -pdrupal -h db drupal\n\n"
 
 ## down		:	Stop containers (won't prune).
 .PHONY: down
