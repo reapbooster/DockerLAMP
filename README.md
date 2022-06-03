@@ -17,6 +17,8 @@ Everything is launched or controlled with GNU make.
 
 7. Within the **web** container, import the DB: `zcat prod-DB_FILENAME.sql.gz | mysql -u drupal -pdrupal -h db drupal`
 
+9. Use this to make new DBs: `CREATE DATABASE dbname; GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, INDEX, DROP, ALTER, CREATE TEMPORARY TABLES, LOCK TABLES ON dbname.* to drupal;`
+
 ## Some helpful commands, run `make help` to verify they still are accurate:
 
  help           :       Print commands help.
