@@ -1,4 +1,4 @@
-FROM php:7.4.21-apache
+FROM php:8.1-apache
 
 # # Update
 RUN apt-get -y update --fix-missing && \
@@ -29,13 +29,13 @@ openssl && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Install xdebug
-RUN pecl install xdebug-2.8.0 && \
+RUN pecl install xdebug-3.1.5 && \
     docker-php-ext-enable xdebug
 
 RUN echo "zend_extension=xdebug\n \
-xdebug.remote_enable=on\n \
-xdebug.remote_autostart=on\n \
-xdebug.remote_connect_back=on" > /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+xdebug.mode=debug\n \
+xdebug.start_with_request=yes\n \
+xdebug.discover_client_host" > /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 # # Install redis
 # RUN pecl install redis-5.1.1 && \
@@ -51,14 +51,14 @@ RUN apt-get update && \
 # Other PHP7 Extensions
 
 RUN docker-php-ext-install pdo_mysql && \
-    docker-php-ext-install pdo_sqlite && \
+#    docker-php-ext-install pdo_sqlite && \
     docker-php-ext-install mysqli && \
-    docker-php-ext-install curl && \
-    docker-php-ext-install tokenizer && \
-    docker-php-ext-install json && \
+#    docker-php-ext-install curl && \
+#    docker-php-ext-install tokenizer && \
+#    docker-php-ext-install json && \
     docker-php-ext-install zip && \
     docker-php-ext-install -j$(nproc) intl && \
-    docker-php-ext-install mbstring && \
+#    docker-php-ext-install mbstring && \
     docker-php-ext-install gettext && \
     docker-php-ext-install calendar && \
     docker-php-ext-install exif
