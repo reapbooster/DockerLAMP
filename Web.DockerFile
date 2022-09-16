@@ -1,4 +1,4 @@
-FROM php:8.1-apache
+FROM php:8.0-apache
 
 # # Update
 RUN apt-get -y update --fix-missing && \
@@ -81,8 +81,13 @@ RUN rm -rf /usr/src/*
 
 # RUN pecl install memcache-4.0.5.2
 
-RUN composer global require drush/drush:^8
+RUN composer global require drush/drush:^10
+
+RUN cd /usr/local/etc/php/conf.d/ && \
+  echo 'memory_limit = -1' >> /usr/local/etc/php/conf.d/docker-php-ram-limit.ini
 
 COPY apache-vhost-configs /etc/apache2/sites-available/000-default.conf
 
 RUN echo 'export PATH="$HOME/.composer/vendor/bin:$PATH"' >> ~/.bashrc
+
+RUN php -v 
