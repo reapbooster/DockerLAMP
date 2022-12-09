@@ -19,6 +19,8 @@ Everything is launched or controlled with GNU make.
 
 9. Use this to make new DBs: `CREATE DATABASE dbname; GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, INDEX, DROP, ALTER, CREATE TEMPORARY TABLES, LOCK TABLES ON dbname.* to drupal;`
 
+10. Use RSYNC to download all public files: rsync -vazh --max-size=1m --exclude={'*.pdf','*.doc','*.docx','*.xls','*.xlsx','*.ppt','*.pptx'} server_user@hostname:/app_dir/sites/default/files/ .
+
 ## Some helpful commands, run `make help` to verify they still are accurate:
 
  help           :       Print commands help.
